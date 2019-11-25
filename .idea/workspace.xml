@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f716d345-4cc1-4442-85c7-da860550a376" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/data/testingscenario.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SimulationWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/testingscenario.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/testingscenario.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/scalable-nbody/Body.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/scalable-nbody/Body.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/scalable-nbody/NBodyDriver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/scalable-nbody/NBodyDriver$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/scalable-nbody/NBodyDriver$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/scalable-nbody/NBodyDriver$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/scalable-nbody/NBodyDriver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/scalable-nbody/NBodyDriver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/scalable-nbody/QuadTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/scalable-nbody/QuadTree.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Body.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NBodyDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NBodyDriver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/QuadTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/QuadTree.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +32,13 @@
   </component>
   <component name="ProjectId" id="1Tf9bShzYPUJZ9bbkoXXgn3DwLZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -37,9 +51,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.NBodyDriver">
     <configuration name="NBodyDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NBodyDriver" />
+      <module name="scalable-nbody" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimulationWriter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SimulationWriter" />
       <module name="scalable-nbody" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -48,6 +69,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.NBodyDriver" />
+        <item itemvalue="Application.SimulationWriter" />
       </list>
     </recent_temporary>
   </component>

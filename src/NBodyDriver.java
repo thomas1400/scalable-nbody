@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -9,11 +11,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
-public class NBodyDriver extends JPanel {
+public class NBodyDriver extends JPanel implements MouseListener {
 
     private Body[] bodies;
+    private QuadTree qt;
+    private static final int size = 700;
+    private final int numBodies = 10000;
 
     private NBodyDriver(String filepath) throws FileNotFoundException {
         File scenario = new File(filepath);
@@ -21,17 +27,38 @@ public class NBodyDriver extends JPanel {
         bodies = new Body[Integer.parseInt(s.nextLine().strip())];
         int i = 0;
         while (s.hasNextLine()) {
-            int[] line = Arrays.stream(s.nextLine().strip().split(",")).mapToInt(Integer::parseInt).toArray();
-            bodies[i] = new Body(line[0], new int[]{line[1], line[2]}, new int[]{line[3], line[4]});
+            double[] line = Arrays.stream(s.nextLine().strip().split(",")).mapToDouble(Double::parseDouble).toArray();
+            bodies[i] = new Body((int)line[0], new double[]{line[1], line[2]}, new double[]{line[3], line[4]});
             i++;
         }
+
+        qt = new QuadTree(bodies, size);
+    }
+
+    private NBodyDriver() {
+        Random rand = new Random();
+        bodies = new Body[numBodies];
+        for (int i = 0; i < numBodies; i++) {
+            bodies[i] = new Body(1, new double[]{rand.nextInt(size), rand.nextInt(size)},
+                                    new double[]{0*rand.nextDouble(), 0*rand.nextDouble()});
+        }
+        qt = new QuadTree(bodies, size);
     }
 
     /**
      * Updates the simulation.
      */
     private void update() {
-
+        // For every Body:
+        //  Traverse the QuadTree:
+        //  If the COM of a cell is sufficiently far from this Body, compute force with that COM and mass. Return.
+        //  If the COM is too close, check the children.
+        //  If the cell is singular or at the minimum size, calculate with the COM and mass. Return.
+        for (Body b : bodies) {
+            double[] force = qt.calculateNetForce(b);
+            b.update(force);
+        }
+        qt = new QuadTree(bodies, size);
     }
 
     /**
@@ -41,9 +68,12 @@ public class NBodyDriver extends JPanel {
     @Override
     public void paintComponent(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, size, size);
         for (Body b : bodies) {
             b.paint(g2d);
         }
+//        qt.paintUsed(g2d, new Body(0, new double[]{size/2.0, size/2.0}, new double[2]));
     }
 
     /**
@@ -93,14 +123,18 @@ public class NBodyDriver extends JPanel {
         // Create JFrame, Game, add Game to JFrame and set settings
         JFrame frame = new JFrame("N-Body Simulation");
 
-        NBodyDriver nbd = new NBodyDriver("data/testingscenario.txt");
-        nbd.setPreferredSize(new Dimension(600, 600));
+        SimulationWriter.generateSimulation("");
+
+        NBodyDriver nbd = new NBodyDriver("data/circulation.txt");
+        //NBodyDriver nbd = new NBodyDriver();
+        nbd.setPreferredSize(new Dimension(size, size));
 
         frame.add(nbd);
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addMouseListener(nbd);
 
         // Create update and repaint timer and start it.
         Timer t = new Timer(10, new ActionListener() {
@@ -122,4 +156,33 @@ public class NBodyDriver extends JPanel {
         });
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Body[] newBodies = new Body[bodies.length + 1];
+        System.arraycopy(bodies, 0, newBodies, 0, bodies.length);
+        newBodies[newBodies.length-1] = new Body(1, new double[]{e.getX(), e.getY()}, new double[]{0.1, 0});
+        bodies = newBodies;
+        this.update();
+        this.repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
